@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Globalization;
 using DesafioProjetoHospedagem.Models;
+using System;
 
 Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-BR");
 Console.OutputEncoding = Encoding.UTF8;
@@ -9,6 +10,49 @@ Console.OutputEncoding = Encoding.UTF8;
 List<Pessoa> hospedes = new List<Pessoa>();
 List<Suite> suites = new List<Suite>();
 List<Reserva> reservas = new List<Reserva>();
+
+
+bool sair = false;
+while (!sair)
+{
+    ExibirMenu();
+    string opcao = Console.ReadLine();
+
+    switch (opcao)
+    {
+        case "1":
+            CadastrarHospede();
+            break;
+        case "2":
+            ListarHospedes();
+            break;
+        case "3":
+            CadastrarSuite();
+            break;
+        // case "4":
+        //     ListarSuites();
+        //     break;
+        // case "5":
+        //     FazerReserva();
+        //     break;
+        // case "6":
+        //     ListarReservas();
+        //     break;
+        // case "7":
+        //     CalcularValorDiaria();
+        //     break;
+        // case "0":
+        //     sair = true;
+        //     Console.WriteLine("Saindo do sistema...");
+        //     break;
+        default:
+            Console.WriteLine("Opção inválida!");
+            Console.ReadKey();
+            break;
+    }
+}
+
+
 
 void ExibirMenu()
 {
@@ -27,11 +71,28 @@ void ExibirMenu()
     Console.Write("\nEscolha uma opção: ");
 }
 
-void CadastrarHospedes()
+void CadastrarHospede()
 {
     Console.Clear();
     Console.WriteLine("*** CADASTRO DE HOSPEDES ***");
+    Console.Write("Insira o nome do hóspede: ");
+    string nome = Console.ReadLine();
 
+    if (string.IsNullOrWhiteSpace(nome))
+    {
+        Console.WriteLine("Nome inválido!");
+        Console.ReadKey();
+        return;
+    }
+    hospedes.Add(new Pessoa(nome));
+    Console.WriteLine($"Hóspede {nome} cadastrado com sucesso!");
+    Console.ReadKey();
+} 
+
+
+void ListarHospedes()
+{
+    
     if (hospedes.Count == 0)
     {
         Console.WriteLine("Nenhum hóspede cadastrado no sistema.");
@@ -71,7 +132,7 @@ void CadastrarSuite()
     {
         Console.WriteLine("Valor da diária é inválida! Insira um valor correto.");
         Console.ReadKey();
-        return
+        return;
     }
 
     suites.Add(new Suite(tipo, capacidade, valorDiaria));
