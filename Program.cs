@@ -36,6 +36,9 @@ while(!sair)
         case "6":
             ListarReservas();
             break;
+        case "7":
+            AvaliarHospedagem();
+            break;   
         case "0":
             sair = true;
             Console.WriteLine("Saindo do sistema...");
@@ -105,7 +108,7 @@ void ListarHospedes()
 void CadastrarSuite()
 {
     Console.Clear();
-    Console.WriteLine("=== CADASTRAR SUÍTE ===");
+    Console.WriteLine("*** CADASTRAR SUÍTE ***");
     
     Console.Write("Tipo da suíte: ");
     string tipo = Console.ReadLine();
@@ -134,7 +137,7 @@ void CadastrarSuite()
 void ListarSuites()
 {
     Console.Clear();
-    Console.WriteLine("=== LISTA DE SUÍTES ===");
+    Console.WriteLine("*** LISTAGEM  DE SUÍTES ***");
     
     if(suites.Count == 0)
     {
@@ -154,7 +157,7 @@ void ListarSuites()
 void FazerReserva()
 {
     Console.Clear();
-    Console.WriteLine("=== FAZER RESERVA ===");
+    Console.WriteLine("*** FAZER RESERVA ***");
     
     if(suites.Count == 0)
     {
@@ -247,7 +250,7 @@ void FazerReserva()
     }
     
     // Dias reservados
-    Console.Write("\nQuantidade de dias reservados: ");
+    Console.Write("\nQuantidade de dias que deseja reservar: ");
     if(!int.TryParse(Console.ReadLine(), out int diasReservados) || diasReservados <= 0)
     {
         Console.WriteLine("Valor inválido! Deve ser um número positivo.");
@@ -276,23 +279,24 @@ void FazerReserva()
 void ListarReservas()
 {
     Console.Clear();
-    Console.WriteLine("=== LISTA DE RESERVAS ===");
-    
-    if(reservas.Count == 0)
+    Console.WriteLine("*** LISTAGEM DE RESERVAS ***");
+
+    if (reservas.Count == 0)
     {
         Console.WriteLine("Nenhuma reserva cadastrada.");
     }
     else
     {
-        for(int i = 0; i < reservas.Count; i++)
+        for (int i = 0; i < reservas.Count; i++)
         {
-            Console.WriteLine($"Reserva {i+1}:");
+            Console.WriteLine($"Reserva {i + 1}:");
             Console.WriteLine($"- Suíte: {reservas[i].Suite.TipoSuite}");
             Console.WriteLine($"- Hóspedes: {reservas[i].ObterQuantidadeHospedes()}");
             Console.WriteLine($"- Dias reservados: {reservas[i].DiasReservados}");
             Console.WriteLine($"- Valor total: {reservas[i].CalcularValorDiaria():C}\n");
         }
     }
-    
+
     Console.ReadKey();
 }
+
